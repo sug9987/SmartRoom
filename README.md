@@ -83,12 +83,12 @@ Access the app at: `http://127.0.0.1:8000/`
  8. 📸 Screenshots
     Landing Page
    <img width="1916" height="972" alt="image" src="https://github.com/user-attachments/assets/79b2184c-9136-454c-8bae-a66cd3ffc5b1" />
+   
    <img width="1722" height="659" alt="image" src="https://github.com/user-attachments/assets/f2413ee7-4774-41ef-a7a4-e2094dc4ebec" />
+   
    <img width="1890" height="697" alt="image" src="https://github.com/user-attachments/assets/14475434-1dad-473e-b6a4-b749d34dfbdf" />
+   
    <img width="1884" height="874" alt="image" src="https://github.com/user-attachments/assets/ca27520f-c3c2-45e2-a7ae-856995f06786" />
-
-
-
 
 
 Login Page
@@ -101,15 +101,20 @@ Registration Page
 
 User Dashboard / Booking Form
 <img width="1909" height="604" alt="image" src="https://github.com/user-attachments/assets/5e8037e1-2fcf-4186-a829-fc02b074f067" />
+
 <img width="1872" height="969" alt="image" src="https://github.com/user-attachments/assets/8602324d-f18a-43b6-91b3-be7a2ed36710" />
 
 
 
 Admin Dashboard
 <img width="1918" height="969" alt="image" src="https://github.com/user-attachments/assets/a31069db-be39-46f4-96a0-3928f1c19afc" />
+
 <img width="1856" height="813" alt="image" src="https://github.com/user-attachments/assets/2897004e-22f4-4be7-a1f2-df1e92dbede2" />
+
 <img width="1887" height="391" alt="image" src="https://github.com/user-attachments/assets/1f3f70d0-933a-4cd7-b471-508f493877b1" />
+
 <img width="907" height="854" alt="image" src="https://github.com/user-attachments/assets/c665e362-4374-4128-b0c8-cd2f810449d9" />
+
 <img width="784" height="332" alt="image" src="https://github.com/user-attachments/assets/5e12a42a-a760-4bb8-b944-dada6efd65d4" />
 
 
@@ -118,6 +123,7 @@ Admin Dashboard
 
 Room Booking Confirmation / Booking List
 <img width="1910" height="973" alt="image" src="https://github.com/user-attachments/assets/4bd38c71-9450-4bd3-9c27-0edfec065541" />
+
 <img width="1919" height="552" alt="image" src="https://github.com/user-attachments/assets/9a3914bd-a9e3-4c85-98b0-a3181184725b" />
 
 
