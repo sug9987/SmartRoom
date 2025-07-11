@@ -1,0 +1,528 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartRooms | Book Meeting Spaces</title>
+  <link rel="stylesheet" href="{% static 'booking/style.css' %}">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    /* Header/Navbar */
+    header {
+      background-color: white;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #5e60ce;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 6px 10px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #5e60ce;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: #5e60ce;
+      transition: 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      background: url('https://eptura.com/wp-content/uploads/2024/07/space-planning-conference-rooms.webp') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 20px;
+    }
+
+    .hero-text h1 {
+      font-size: 56px;
+      font-weight: 800;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    .hero-text p {
+      font-size: 22px;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      color: #ddd;
+    }
+
+    .cta-button {
+      background: #5e60ce;
+      color: white;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    .cta-button:hover {
+      background: #4e4fcf;
+      transform: translateY(-2px);
+    }
+
+    .features,
+    .features-section,
+    .about {
+      padding: 60px 40px;
+      background: white;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature-box {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .feature-box img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .btn-book {
+      background: #4B0082;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      display: inline-block;
+      margin-top: 12px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .btn-book:hover {
+      background: #36006e;
+      transform: scale(1.05);
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: #212121;
+      color: #ccc;
+      padding: 40px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #5e60ce;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #5e60ce;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .hero-text h1 {
+        font-size: 38px;
+      }
+
+      .hero-text p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header data-aos="fade-down">
+    <div class="logo"><i class="fas fa-door-open"></i> SmartRooms</div>
+    <nav>
+      <a href="{% url 'landing' %}">Home</a>
+      <a href="#features">Features</a>
+      <a href="#rooms">Rooms</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Signup</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <section class="hero" data-aos="zoom-in">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h1>Effortless Meeting Room Booking</h1>
+      <p>Reserve spaces in seconds with SmartRooms – your smarter way to manage workplace productivity.</p>
+      <a href="{% if user.is_authenticated %}{% url 'book_room' %}{% else %}{% url 'login' %}?next={% url 'book_room' %}{% endif %}">
+        <button class="cta-button">Book a Room</button>
+      </a>
+    </div>
+  </section>
+
+  <section id="about-us" style="padding: 80px 20px; background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif;">
+  <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
+    <div style="flex: 1 1 500px;">
+      <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: #333;">About SmartRooms</h2>
+      <p style="color: #555; line-height: 1.8; font-size: 1.1rem;">
+        SmartRooms is your intelligent meeting room booking solution designed to make workspace management seamless and efficient.
+        Whether you're scheduling a quick team huddle or planning a large corporate meeting, SmartRooms ensures you find the right space, at the right time, with just a few clicks.
+      </p>
+      <p style="color: #555; line-height: 1.8; font-size: 1.1rem; margin-top: 15px;">
+        With real-time availability, user-friendly booking, and admin controls, we help organizations optimize space usage and productivity.
+        Built for modern teams, by a team that believes in smart collaboration.
+      </p>
+    </div>
+    <div style="flex: 1 1 400px; text-align: center;">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dGVhbXdvcmt8ZW58MHx8MHx8fDA%3D"
+           alt="Company illustration"
+           style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    </div>
+  </div>
+</section>
+
+  <section class="features" id="features" data-aos="fade-up">
+  <h2 style="text-align:center;">Why Choose SmartRooms?</h2>
+  <div class="features-grid">
+    
+    <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=600&auto=format&fit=crop&q=60" alt="City Office">
+      <h3>🌍 Prime Locations</h3>
+      <p>Strategically located rooms in Andheri, Bandra, Lower Parel, Powai, and more. Work closer to your clients or teams.</p>
+    </div>
+
+    <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://plus.unsplash.com/premium_photo-1661879435429-a396d927c686?w=600&auto=format&fit=crop&q=60" alt="Boardroom">
+      <h3>📊 Flexible Capacities</h3>
+      <p>From 2-person huddles to 20-seat board meetings — book the right-sized room for your needs in a few taps.</p>
+    </div>
+
+   <div class="feature-box" data-aos="fade-up" data-aos-delay="300">
+      <img src="https://media.istockphoto.com/id/810529310/photo/presenting-some-of-her-top-ideas-to-the-team.webp?a=1&b=1&s=612x612&w=0&k=20&c=ewrjO89voNBnY48eTpN_aTsn_ZTy94z8Jhr1dpfTrFk=" alt="Modern Office">
+      <h3>🏢 Modern Spaces</h3>
+      <p>Rooms equipped with AC, projectors, whiteboards, and high-speed Wi-Fi for all your business needs.</p>
+    </div>
+
+    <div class="feature-box" data-aos="fade-up" data-aos-delay="400">
+      <img src="https://plus.unsplash.com/premium_photo-1661768289109-c814be8d7c3d?w=600&auto=format&fit=crop&q=60" alt="Online Booking">
+      <h3>🔒 Easy Booking</h3>
+      <p>Book your desired meeting room in just a few clicks, with real-time availability and instant confirmation.</p>
+    </div>
+  </div>
+</section>
+
+
+ <section id="explore-rooms" style="padding: 60px 20px; background-color: #fff;">
+  <h2 style="text-align: center; font-size: 2rem; margin-bottom: 40px;">Explore Our Rooms</h2>
+
+  <style>
+    .room-card {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      cursor: pointer;
+      background-color: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    .room-card:hover {
+      transform: scale(1.02);
+    }
+
+    .room-img, .room-info {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      transition: all 0.5s ease;
+    }
+
+    .room-img {
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .room-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .room-info {
+      right: -100%;
+      width: 100%;
+      background: white;
+      z-index: 2;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .room-info h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+      color: #222;
+    }
+
+    .room-info p {
+      margin: 0 0 20px;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .room-info a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .room-info a:hover {
+      background-color: #0056b3;
+    }
+
+    .room-card:hover .room-img {
+      left: -100%;
+    }
+
+    .room-card:hover .room-info {
+      right: 0;
+    }
+  </style>
+
+  <div class="rooms-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: auto;">
+    {% for room in rooms|slice:":8" %}
+      <div class="room-card">
+        <div class="room-img">
+          <img src="{{ room.room_image_url|default:'/static/booking/placeholder-room.jpg' }}" alt="{{ room.name }}">
+        </div>
+        <div class="room-info">
+          <h3>{{ room.name }}</h3>
+          <p>Capacity: {{ room.capacity }}</p>
+          <a href="{% url 'book_room' room.id %}">Book Now</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- View More Button -->
+  <div style="text-align: center; margin-top: 40px;">
+    <a href="{% url 'room_list' %}" style="background-color: #007BFF; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s;">
+      View More Rooms
+    </a>
+  </div>
+</section>
+
+
+<section id="reviews" style="padding: 80px 20px; background-color: #fff; font-family: 'Segoe UI', sans-serif;">
+  <div style="max-width: 1200px; margin: auto;">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px; color: #333;">What Our Users Say</h2>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+
+      <!-- Review 1 -->
+      <div style="flex: 1 1 300px; background-color: #f1f1f1; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
+        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #222;">Rohan Mehta</h3>
+        <p style="font-size: 0.95rem; color: #444;">
+          “SmartRooms has completely changed how we manage our office space. No more conflicts or confusion — it's fast, reliable, and super easy to use.”
+        </p>
+      </div>
+
+      <!-- Review 2 -->
+      <div style="flex: 1 1 300px; background-color: #f1f1f1; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #222;">Priya Sharma</h3>
+        <p style="font-size: 0.95rem; color: #444;">
+          “I love the clean interface and real-time availability. As an office admin, it saves me hours every week. Highly recommended!”
+        </p>
+      </div>
+
+      <!-- Review 3 -->
+      <div style="flex: 1 1 300px; background-color: #f1f1f1; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
+        <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="User Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 10px; color: #222;">Amit Raj</h3>
+        <p style="font-size: 0.95rem; color: #444;">
+          “SmartRooms fits right into our hybrid work culture. It's the easiest way for our team to find the right room without hassle.”
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <footer data-aos="fade-up">
+    <div class="footer-top">
+      <div class="footer-address">
+        <h4>📍 SmartRooms HQ</h4>
+        <p>3rd Floor, Andheri Tech Hub,<br>Mumbai - 400093</p>
+        <p>✉️ <a href="mailto:support@smartrooms.in">support@smartrooms.in</a></p>
+        <p>☎️ <a href="tel:+919876543210">+91 98765 43210</a></p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{% url 'landing' %}">Home</a></li>
+          <li><a href="#rooms">Rooms</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 20px auto;">
+    <p style="text-align:center;">© 2025 SmartRooms | Made with ❤️ by <strong>Sumit & Affifa</strong></p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>

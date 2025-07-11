@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SmartRooms | Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #2d3748;
+      color: white;
+      padding: 30px 20px;
+      position: fixed;
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    .sidebar h2 {
+      font-size: 24px;
+      margin-bottom: 40px;
+      color: #4fd1c5;
+    }
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #4fd1c5;
+      color: #2d3748;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 30px;
+      flex: 1;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .topbar h1 {
+      font-size: 26px;
+    }
+    .logout-btn {
+      background-color: #4fd1c5;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .logout-btn:hover {
+      background-color: #38b2ac;
+    }
+
+    .stats-grid {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      flex: 1;
+      min-width: 220px;
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+    .stat-card h3 {
+      font-size: 18px;
+      color: #4fd1c5;
+    }
+    .stat-card p {
+      font-size: 34px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .actions {
+      margin-top: 40px;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .action-buttons a {
+      padding: 10px 25px;
+      background: #805ad5;
+      color: white;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+    .action-buttons a:hover {
+      transform: scale(1.05);
+      background: #6b46c1;
+    }
+
+    .footer {
+      margin-top: 60px;
+      text-align: center;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>SmartRooms</h2>
+    <a href="{% url 'home' %}"><i class="fa fa-home"></i> Dashboard</a>
+    <a href="{% url 'room_list' %}"><i class="fa fa-door-closed"></i> View Rooms</a>
+    <a href="{% url 'book_room' %}"><i class="fa fa-calendar-plus"></i> Book Room</a>
+    <a href="{% url 'booking_history' %}"><i class="fa fa-history"></i> Booking History</a>
+    <a href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <!-- Main Dashboard -->
+  <div class="main-content">
+    <div class="topbar">
+      <h1>Welcome, {{ request.user.username }} 👋</h1>
+      <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Bookings</h3>
+        <p>{{ total_bookings }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Today's Bookings</h3>
+        <p>{{ todays_bookings }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Upcoming Bookings</h3>
+        <p>{{ upcoming_bookings }}</p>
+      </div>
+    </div>
+
+    
+</body>
+</html>

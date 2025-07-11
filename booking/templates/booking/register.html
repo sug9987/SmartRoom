@@ -1,0 +1,216 @@
+{% load static %}
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('https://images.unsplash.com/photo-1612832021026-5b6a37d4f34c?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .register-overlay {
+    background-color: rgba(255, 255, 255, 0.92);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+  }
+
+  .register-card {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 35px 28px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .register-title {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #4a148c;
+    font-weight: 700;
+  }
+
+  .register-form .form-group {
+    margin-bottom: 18px;
+  }
+
+  .register-form label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: #222;
+    font-size: 14px;
+  }
+
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form input[type="password"],
+  .register-form input[type="tel"],
+  .register-form select {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f1f1f1;
+    transition: all 0.3s ease;
+  }
+
+  .register-form input:focus,
+  .register-form select:focus {
+    border-color: #673ab7;
+    background: #fff;
+    outline: none;
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  .checkbox-group label {
+    margin: 0;
+    color: #444;
+    font-weight: 400;
+  }
+
+  .checkbox-group label a {
+    color: #512da8;
+    text-decoration: none;
+  }
+
+  .checkbox-group label a:hover {
+    text-decoration: underline;
+  }
+
+  .btn-register,
+  .btn-home {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+  }
+
+  .btn-register {
+    background: linear-gradient(135deg, #7b1fa2, #512da8);
+    color: white;
+  }
+
+  .btn-register:hover {
+    background: linear-gradient(135deg, #6a1b9a, #4527a0);
+  }
+
+  .btn-home {
+    background: #e0e0e0;
+    color: #333;
+  }
+
+  .btn-home:hover {
+    background: #d5d5d5;
+  }
+
+  .login-link {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+  }
+
+  .login-link a {
+    color: #4a148c;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+
+  .errorlist {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .alert {
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .alert-info {
+    background-color: #e8f0fe;
+    color: #1a237e;
+    border-left: 5px solid #3949ab;
+  }
+
+  .alert-error {
+    background-color: #ffebee;
+    color: #b71c1c;
+    border-left: 5px solid #e53935;
+  }
+
+  .alert-success {
+    background-color: #e6f4ea;
+    color: #256029;
+    border-left: 5px solid #2e7d32;
+  }
+</style>
+
+<div class="register-overlay" data-aos="zoom-in">
+  <div class="register-card">
+    <h2 class="register-title">Create Your Account</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" class="register-form">
+      {% csrf_token %}
+
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="errorlist">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I agree to the <a href="#">User Agreement</a> and <a href="#">Guest Policy</a>.</label>
+      </div>
+
+      <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <a href="{% url 'landing' %}">
+      <button class="btn-home">← Back to Home</button>
+    </a>
+
+    <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+  </div>
+</div>
+{% endblock %}
